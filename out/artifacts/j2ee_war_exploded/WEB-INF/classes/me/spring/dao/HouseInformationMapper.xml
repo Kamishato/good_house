@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.spring.dao.HouseInformationDAO">
+
+    <!-- t_houseinformation：新增字段为下划线命名，需要映射到实体类驼峰属性 -->
+    <resultMap id="HouseInformationResultMap" type="me.spring.entity.HouseInformation">
+        <id property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="title" column="title"/>
+        <result property="suiteRoom" column="suiteRoom"/>
+        <result property="suiteHall" column="suiteHall"/>
+        <result property="suiteBathroom" column="suiteBathroom"/>
+        <result property="area" column="area"/>
+        <result property="direction" column="direction"/>
+        <result property="floor" column="floor"/>
+        <result property="totalFloor" column="totalFloor"/>
+        <result property="birth" column="birth"/>
+        <result property="housebelong" column="housebelong"/>
+        <result property="price" column="price"/>
+        <result property="decoration" column="decoration"/>
+        <result property="property" column="property"/>
+        <result property="propertyrights" column="propertyrights"/>
+        <result property="salesman" column="salesman"/>
+        <result property="housestatus" column="housestatus"/>
+
+        <result property="detailedAddress" column="detailed_address"/>
+        <result property="contactWechat" column="contact_wechat"/>
+        <result property="highlights" column="highlights"/>
+        <result property="rentalReqs" column="rental_reqs"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <select id="getByFactors" resultMap="HouseInformationResultMap">
+        SELECT
+            id, code, title, suiteRoom, suiteHall, suiteBathroom, area, direction, floor, totalFloor, birth,
+            housebelong, price, decoration, property, propertyrights, salesman, housestatus,
+            detailed_address, contact_wechat, highlights, rental_reqs, description
+        FROM t_houseinformation
+        <where>
+            <if test="houseInfo.code != null and houseInfo.code != ''">
+                AND code LIKE CONCAT(CONCAT('%', #{houseInfo.code}, '%'))
+            </if>
+            <if test="houseInfo.title != null and houseInfo.title != ''">
+                AND title LIKE CONCAT(CONCAT('%', #{houseInfo.title}, '%'))
+            </if>
+            <if test="houseInfo.suiteRoom != null and houseInfo.suiteRoom != ''">
+                AND suiteRoom = #{houseInfo.suiteRoom}
+            </if>
+            <if test="houseInfo.suiteHall != null and houseInfo.suiteHall != ''">
+                AND suiteHall = #{houseInfo.suiteHall}
+            </if>
+            <if test="houseInfo.suiteBathroom != null and houseInfo.suiteBathroom != ''">
+                AND suiteBathroom = #{houseInfo.suiteBathroom}
+            </if>
+            <if test="houseInfo.area != null and houseInfo.area != ''">
+                AND area LIKE CONCAT(CONCAT('%', #{houseInfo.area}, '%'))
+            </if>
+            <if test="houseInfo.direction != null and houseInfo.direction != ''">
+                AND direction = #{houseInfo.direction}
+            </if>
+            <if test="houseInfo.floor != null and houseInfo.floor != ''">
+                AND floor = #{houseInfo.floor}
+            </if>
+            <if test="houseInfo.totalFloor != null and houseInfo.totalFloor != ''">
+                AND totalFloor = #{houseInfo.totalFloor}
+            </if>
+            <if test="houseInfo.birth != null and houseInfo.birth != ''">
+                AND birth = #{houseInfo.birth}
+            </if>
+            <if test="houseInfo.housebelong != null and houseInfo.housebelong != ''">
+                AND housebelong = #{houseInfo.housebelong}
+            </if>
+            <if test="houseInfo.price != null and houseInfo.price != ''">
+                AND price = #{houseInfo.price}
+            </if>
+            <if test="houseInfo.decoration != null and houseInfo.decoration != ''">
+                AND decoration = #{houseInfo.decoration}
+            </if>
+            <if test="houseInfo.property != null and houseInfo.property != ''">
+                AND property = #{houseInfo.property}
+            </if>
+            <if test="houseInfo.propertyrights != null and houseInfo.propertyrights != ''">
+                AND propertyrights = #{houseInfo.propertyrights}
+            </if>
+            <if test="houseInfo.salesman != null and houseInfo.salesman != ''">
+                AND salesman = #{houseInfo.salesman}
+            </if>
+            <if test="houseInfo.housestatus != null and houseInfo.housestatus != ''">
+                AND housestatus = #{houseInfo.housestatus}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <select id="selectByRange" resultMap="HouseInformationResultMap">
+        SELECT
+            id, code, title, suiteRoom, suiteHall, suiteBathroom, area, direction, floor, totalFloor, birth,
+            housebelong, price, decoration, property, propertyrights, salesman, housestatus,
+            detailed_address, contact_wechat, highlights, rental_reqs, description
+        FROM t_houseinformation
+        <where>
+            <if test="houseInfo.housebelong != null and houseInfo.housebelong != ''">
+                AND housebelong = #{houseInfo.housebelong}
+            </if>
+            <if test="houseInfo.suiteRoom != null and houseInfo.suiteRoom != ''">
+                AND suiteRoom = #{houseInfo.suiteRoom}
+            </if>
+            <if test="houseInfo.direction != null and houseInfo.direction != ''">
+                AND direction = #{houseInfo.direction}
+            </if>
+            <if test="houseInfo.decoration != null and houseInfo.decoration != ''">
+                AND decoration = #{houseInfo.decoration}
+            </if>
+            <if test="houseInfo.property != null and houseInfo.property != ''">
+                AND property = #{houseInfo.property}
+            </if>
+            <if test="houseInfo.propertyrights != null and houseInfo.propertyrights != ''">
+                AND propertyrights = #{houseInfo.propertyrights}
+            </if>
+            <if test="houseInfo.housestatus != null and houseInfo.housestatus != ''">
+                AND housestatus = #{houseInfo.housestatus}
+            </if>
+            <if test="houseInfo.floor != null and houseInfo.floor != ''">
+                AND floor = #{houseInfo.floor}
+            </if>
+            <if test="houseInfo.totalFloor != null and houseInfo.totalFloor != ''">
+                AND totalFloor = #{houseInfo.totalFloor}
+            </if>
+            AND area BETWEEN #{rangeInfo.minArea} AND #{rangeInfo.maxArea}
+            AND birth BETWEEN #{rangeInfo.minBirth} AND #{rangeInfo.maxBirth}
+            AND price BETWEEN #{rangeInfo.minPrice} AND #{rangeInfo.maxPrice}
+        </where>
+        ORDER BY id DESC
+    </select>
+
+    <!-- 与 selectByRange 条件一致，仅 id，限制条数防止 IN 池过大 -->
+    <select id="selectIdsByRange" resultType="java.lang.Integer">
+        SELECT h.id
+        FROM t_houseinformation h
+        <where>
+            <if test="houseInfo.housebelong != null and houseInfo.housebelong != ''">
+                AND h.housebelong = #{houseInfo.housebelong}
+            </if>
+            <if test="houseInfo.suiteRoom != null and houseInfo.suiteRoom != ''">
+                AND h.suiteRoom = #{houseInfo.suiteRoom}
+            </if>
+            <if test="houseInfo.direction != null and houseInfo.direction != ''">
+                AND h.direction = #{houseInfo.direction}
+            </if>
+            <if test="houseInfo.decoration != null and houseInfo.decoration != ''">
+                AND h.decoration = #{houseInfo.decoration}
+            </if>
+            <if test="houseInfo.property != null and houseInfo.property != ''">
+                AND h.property = #{houseInfo.property}
+            </if>
+            <if test="houseInfo.propertyrights != null and houseInfo.propertyrights != ''">
+                AND h.propertyrights = #{houseInfo.propertyrights}
+            </if>
+            <if test="houseInfo.housestatus != null and houseInfo.housestatus != ''">
+                AND h.housestatus = #{houseInfo.housestatus}
+            </if>
+            <if test="houseInfo.floor != null and houseInfo.floor != ''">
+                AND h.floor = #{houseInfo.floor}
+            </if>
+            <if test="houseInfo.totalFloor != null and houseInfo.totalFloor != ''">
+                AND h.totalFloor = #{houseInfo.totalFloor}
+            </if>
+            AND h.area BETWEEN #{rangeInfo.minArea} AND #{rangeInfo.maxArea}
+            AND h.birth BETWEEN #{rangeInfo.minBirth} AND #{rangeInfo.maxBirth}
+            AND h.price BETWEEN #{rangeInfo.minPrice} AND #{rangeInfo.maxPrice}
+        </where>
+        ORDER BY h.id DESC
+        LIMIT #{maxIds}
+    </select>
+
+    <select id="selectByCode" resultMap="HouseInformationResultMap">
+        SELECT
+            id, code, title, suiteRoom, suiteHall, suiteBathroom, area, direction, floor, totalFloor, birth,
+            housebelong, price, decoration, property, propertyrights, salesman, housestatus,
+            detailed_address, contact_wechat, highlights, rental_reqs, description
+        FROM t_houseinformation
+        WHERE code = #{code}
+    </select>
+
+    <select id="selectById" resultMap="HouseInformationResultMap">
+        SELECT
+            id, code, title, suiteRoom, suiteHall, suiteBathroom, area, direction, floor, totalFloor, birth,
+            housebelong, price, decoration, property, propertyrights, salesman, housestatus,
+            detailed_address, contact_wechat, highlights, rental_reqs, description
+        FROM t_houseinformation
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectByBehavior" resultMap="HouseInformationResultMap">
+        SELECT
+            h.id, h.code, h.title, h.suiteRoom, h.suiteHall, h.suiteBathroom, h.area, h.direction, h.floor, h.totalFloor, h.birth,
+            h.housebelong, h.price, h.decoration, h.property, h.propertyrights, h.salesman, h.housestatus,
+            h.detailed_address, h.contact_wechat, h.highlights, h.rental_reqs, h.description
+        FROM t_houseinformation h
+        JOIN t_user_behavior b ON b.house_id = h.id
+        WHERE b.user_id = #{userId}
+          AND b.behavior_type = #{behaviorType}
+        GROUP BY h.id
+        ORDER BY MAX(b.create_time) DESC
+    </select>
+
+    <delete id="delete">
+        DELETE FROM t_houseinformation WHERE code = #{code}
+    </delete>
+
+    <select id="getTotalTable" resultType="me.spring.entity.TotalTable">
+        SELECT * FROM t_systable
+    </select>
+
+    <update id="update">
+        UPDATE t_houseinformation
+        <set>
+            <if test="houseinfo.title != '' and houseinfo.title != null">
+                title = #{houseinfo.title},
+            </if>
+            <if test="houseinfo.suiteRoom != '' and houseinfo.suiteRoom != null">
+                suiteRoom = #{houseinfo.suiteRoom},
+            </if>
+            <if test="houseinfo.suiteHall != '' and houseinfo.suiteHall != null">
+                suiteHall = #{houseinfo.suiteHall},
+            </if>
+            <if test="houseinfo.suiteBathroom != '' and houseinfo.suiteBathroom != null">
+                suiteBathroom = #{houseinfo.suiteBathroom},
+            </if>
+            <if test="houseinfo.area != '' and houseinfo.area != null">
+                area = #{houseinfo.area},
+            </if>
+            <if test="houseinfo.direction != '' and houseinfo.direction != null">
+                direction = #{houseinfo.direction},
+            </if>
+            <if test="houseinfo.floor != '' and houseinfo.floor != null">
+                floor = #{houseinfo.floor},
+            </if>
+            <if test="houseinfo.totalFloor != '' and houseinfo.totalFloor != null">
+                totalFloor = #{houseinfo.totalFloor},
+            </if>
+            <if test="houseinfo.birth != '' and houseinfo.birth != null">
+                birth = #{houseinfo.birth},
+            </if>
+            <if test="houseinfo.housebelong != '' and houseinfo.housebelong != null">
+                housebelong = #{houseinfo.housebelong},
+            </if>
+            <if test="houseinfo.price != '' and houseinfo.price != null">
+                price = #{houseinfo.price},
+            </if>
+            <if test="houseinfo.decoration != '' and houseinfo.decoration != null">
+                decoration = #{houseinfo.decoration},
+            </if>
+            <if test="houseinfo.property != '' and houseinfo.property != null">
+                property = #{houseinfo.property},
+            </if>
+            <if test="houseinfo.propertyrights != '' and houseinfo.propertyrights != null">
+                propertyrights = #{houseinfo.propertyrights},
+            </if>
+            <if test="houseinfo.salesman != '' and houseinfo.salesman != null">
+                salesman = #{houseinfo.salesman},
+            </if>
+            <if test="houseinfo.housestatus != '' and houseinfo.housestatus != null">
+                housestatus = #{houseinfo.housestatus},
+            </if>
+
+            <if test="houseinfo.detailedAddress != '' and houseinfo.detailedAddress != null">
+                detailed_address = #{houseinfo.detailedAddress},
+            </if>
+            <if test="houseinfo.contactWechat != '' and houseinfo.contactWechat != null">
+                contact_wechat = #{houseinfo.contactWechat},
+            </if>
+            <if test="houseinfo.highlights != '' and houseinfo.highlights != null">
+                highlights = #{houseinfo.highlights},
+            </if>
+            <if test="houseinfo.rentalReqs != '' and houseinfo.rentalReqs != null">
+                rental_reqs = #{houseinfo.rentalReqs},
+            </if>
+            <if test="houseinfo.description != '' and houseinfo.description != null">
+                description = #{houseinfo.description},
+            </if>
+        </set>
+        WHERE code = #{houseinfo.code}
+    </update>
+
+    <insert id="insert">
+        INSERT INTO t_houseinformation(
+            code, title, suiteRoom, suiteHall, suiteBathroom, area, direction,
+            floor, totalFloor, birth, housebelong, price, decoration, property, propertyrights, salesman, housestatus,
+            detailed_address, contact_wechat, highlights, rental_reqs, description
+        )
+        VALUES(
+            #{houseinfo.code}, #{houseinfo.title}, #{houseinfo.suiteRoom}, #{houseinfo.suiteHall}, #{houseinfo.suiteBathroom},
+            #{houseinfo.area}, #{houseinfo.direction}, #{houseinfo.floor}, #{houseinfo.totalFloor}, #{houseinfo.birth},
+            #{houseinfo.housebelong}, #{houseinfo.price}, #{houseinfo.decoration}, #{houseinfo.property}, #{houseinfo.propertyrights},
+            #{houseinfo.salesman}, #{houseinfo.housestatus},
+            #{houseinfo.detailedAddress}, #{houseinfo.contactWechat}, #{houseinfo.highlights}, #{houseinfo.rentalReqs}, #{houseinfo.description}
+        )
+    </insert>
+
+    <select id="getHouseImg" resultType="me.spring.entity.HouseImgInfo">
+        SELECT
+            code,
+            t_housephoto.photocode,
+            title,
+            location,
+            description,
+            savingfilename,
+            originalfilename,
+            contenttype
+        FROM `t_housephoto`, `t_img`
+        WHERE t_housephoto.photocode = t_img.photocode
+          AND code = #{code}
+    </select>
+
+    <!--
+        批量查询首图（每个 code 只返回 1 条）
+        选择策略：MIN(photocode) 作为“首图”代表；仅选 t_img 中实际存在的列
+    -->
+    <select id="getFirstHouseImgByCodes" resultType="me.spring.entity.HouseImgInfo">
+        SELECT
+            hp.code,
+            hp.photocode,
+            ti.savingfilename,
+            ti.originalfilename,
+            ti.contenttype
+        FROM t_housephoto hp
+        JOIN t_img ti ON hp.photocode = ti.photocode
+        JOIN (
+            SELECT code, MIN(photocode) AS photocode
+            FROM t_housephoto
+            WHERE code IN
+            <foreach collection="codes" item="code" open="(" separator="," close=")">
+                #{code}
+            </foreach>
+            GROUP BY code
+        ) t ON hp.code = t.code AND hp.photocode = t.photocode
+        ORDER BY hp.code
+    </select>
+
+    <!-- 冷启动：排除已售；按全站收藏人数从多到少 -->
+    <select id="getTopFavoritedHouses" resultMap="HouseInformationResultMap">
+        SELECT
+            h.id, h.code, h.title, h.suiteRoom, h.suiteHall, h.suiteBathroom, h.area, h.direction, h.floor, h.totalFloor, h.birth,
+            h.housebelong, h.price, h.decoration, h.property, h.propertyrights, h.salesman, h.housestatus,
+            h.detailed_address, h.contact_wechat, h.highlights, h.rental_reqs, h.description
+        FROM t_houseinformation h
+        LEFT JOIN t_user_behavior b ON b.house_id = h.id AND b.behavior_type = 2
+        WHERE IFNULL(h.housestatus, '') != '已售'
+        GROUP BY h.id
+        ORDER BY COUNT(b.id) DESC, h.id DESC
+        LIMIT #{limit}
+    </select>
+
+</mapper>
+

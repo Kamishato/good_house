@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.spring.dao.UserBehaviorDAO">
+
+    <!--
+        用户行为表字段为下划线命名，实体类为驼峰命名：
+        user_id -> userId, house_id -> houseId, behavior_type -> behaviorType, create_time -> createTime
+     -->
+    <resultMap id="UserBehaviorResultMap" type="me.spring.entity.UserBehavior">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="houseId" column="house_id"/>
+        <result property="behaviorType" column="behavior_type"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!-- 记录用户行为（不插入 id、create_time：由数据库自增/默认时间生成） -->
+    <insert id="insert" parameterType="me.spring.entity.UserBehavior" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user_behavior (user_id, house_id, behavior_type)
+        VALUES (#{userId}, #{houseId}, #{behaviorType})
+    </insert>
+
+    <!-- 查某用户的历史记录（过滤已读用） -->
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="UserBehaviorResultMap">
+        SELECT id, user_id, house_id, behavior_type, create_time
+        FROM t_user_behavior
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC, id DESC
+    </select>
+
+    <!-- 查询所有用户的记录（协同过滤算法计算相似度矩阵用） -->
+    <select id="selectAll" resultMap="UserBehaviorResultMap">
+        SELECT id, user_id, house_id, behavior_type, create_time
+        FROM t_user_behavior
+        ORDER BY create_time DESC, id DESC
+    </select>
+
+    <select id="checkUserBehavior" resultType="int">
+        SELECT COUNT(id) FROM t_user_behavior
+        WHERE user_id = #{userId} AND house_id = #{houseId} AND behavior_type = #{behaviorType}
+    </select>
+
+</mapper>
